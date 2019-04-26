@@ -20,8 +20,8 @@ namespace MazeSolver
         public List<MazeNode> AllNodes { get; }
         public bool SolutionFound { get; set; } = false;
         public List<(int x, int y)> Solution { get; set; }
-        public bool IsPath(int x, int y) => bmp.GetPixel(x, y).R == 255;
-
+        public const string White = "ffffffff";
+        public bool IsPath(int x, int y) => bmp.GetPixel(x, y).Name == White;
         public Maze(string path)
         {
             _path = path;

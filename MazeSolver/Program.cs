@@ -19,7 +19,7 @@ namespace MazeSolver
             if (!File.Exists(filePath))
             {
                 Console.WriteLine("File Not Found");
-                filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"MazeImages\mazeTest.bmp");
+                filePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"MazeImages\mazeTest2.bmp");
             }
             Console.WriteLine($"Using maze image file: {Path.GetFileName(filePath)}");
 

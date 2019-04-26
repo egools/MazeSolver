@@ -57,12 +57,10 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="MazeImages\CompletedMazes\mazeTest.bmp" />
-    <Content Include="MazeImages\CompletedMazes\mazeTest2.bmp">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Folder Include="MazeImages\CompletedMazes\" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="MazeImages\mazeTest.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
