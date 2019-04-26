@@ -11,7 +11,7 @@ namespace MazeSolver
 {
     public class Maze
     {
-        private string _path;
+        private string _imagePath;
         public Bitmap bmp { get; }
         public MazeNode Start { get; }
         public MazeNode End { get; }
@@ -24,8 +24,8 @@ namespace MazeSolver
         public bool IsPath(int x, int y) => bmp.GetPixel(x, y).Name == White;
         public Maze(string path)
         {
-            _path = path;
-            bmp = new Bitmap(_path);
+            _imagePath = path;
+            bmp = new Bitmap(_imagePath);
             Width = bmp.Width;
             Height = bmp.Height;
             var pixels = new bool[Width, Height];
@@ -103,8 +103,12 @@ namespace MazeSolver
                     bmp.SetPixel(x, y, Color.FromArgb(red, gb, gb));
                     step++;
                 }
-                var newPath = Path.GetDirectoryName(_path) + "\\CompletedMazes\\" + Path.GetFileName(_path);
-                bmp.Save(newPath, System.Drawing.Imaging.ImageFormat.Bmp);
+
+                var mazePath = Path.GetDirectoryName(_imagePath);
+                var mazeFileName = Path.GetFileName(_imagePath);
+                Directory.CreateDirectory(Path.Combine(mazePath, "CompletedMazes"));
+                var newPath = Path.Combine(mazePath, "CompletedMazes", mazeFileName);
+                bmp.Save(newPath);
             }
         }
     }
