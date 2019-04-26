@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -75,7 +76,6 @@ namespace MazeSolver
 
         public bool Solve(MazeNode mn)
         {
-            //Debug.WriteLine($"{mn.Position.X}, {mn.Position.Y} Visited");
             mn.Visited = true;
             if (mn == End)
                 mn.InSolution = true;
@@ -103,7 +103,8 @@ namespace MazeSolver
                     bmp.SetPixel(x, y, Color.FromArgb(red, gb, gb));
                     step++;
                 }
-                bmp.Save($"{_path}Complete.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
+                var newPath = Path.GetDirectoryName(_path) + "\\CompletedMazes\\" + Path.GetFileName(_path);
+                bmp.Save(newPath, System.Drawing.Imaging.ImageFormat.Bmp);
             }
         }
     }
