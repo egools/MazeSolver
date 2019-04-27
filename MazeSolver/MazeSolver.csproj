@@ -62,7 +62,9 @@
     <Content Include="MazeImages\mazeTest.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MazeImages\mazeTest2.bmp" />
+    <Content Include="MazeImages\mazeTest2.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

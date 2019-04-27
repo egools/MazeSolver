@@ -28,7 +28,6 @@ namespace MazeSolver
             bmp = new Bitmap(_imagePath);
             Width = bmp.Width;
             Height = bmp.Height;
-            var pixels = new bool[Width, Height];
 
             for (int x = 1; x < bmp.Width - 1; x++)
             {
