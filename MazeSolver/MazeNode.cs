@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MazeSolver
 {
-    public class MazeNode
+    public class MazeNode : IComparable
     {
         public (int X, int Y) Position { get; set; }
         public bool Visited { get; set; } = false;
@@ -47,6 +48,17 @@ namespace MazeSolver
             hashCode = hashCode * -1521134295 + Position.GetHashCode();
             hashCode = hashCode * -1521134295 + Visited.GetHashCode();
             return hashCode;
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+            MazeNode otherMazeNode = obj as MazeNode;
+
+            if (otherMazeNode != null)
+                return DistanceFromEnd.CompareTo(otherMazeNode.DistanceFromEnd);
+            else
+                throw new ArgumentException("Object is not a MazeNode");
         }
     }
 }
