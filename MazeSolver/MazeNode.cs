@@ -6,13 +6,11 @@ namespace MazeSolver
     {
         public (int X, int Y) Position { get; set; }
         public bool Visited { get; set; } = false;
-        public bool InSolution { get; set; } = false;
-        public List<MazeNode> Neighbors;
+        public float DistanceFromEnd { get; set; }
 
         public MazeNode(int x, int y)
         {
             Position = (x, y);
-            Neighbors = new List<MazeNode>();
         }
 
         public override bool Equals(object obj)
@@ -45,9 +43,9 @@ namespace MazeSolver
 
         public override int GetHashCode()
         {
-            var hashCode = 285891042;
+            var hashCode = -365790041;
             hashCode = hashCode * -1521134295 + Position.GetHashCode();
-            hashCode = hashCode * -1521134295 + Neighbors.GetHashCode();
+            hashCode = hashCode * -1521134295 + Visited.GetHashCode();
             return hashCode;
         }
     }

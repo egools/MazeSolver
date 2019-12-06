@@ -28,6 +28,7 @@ namespace MazeSolver
             bmp = new Bitmap(_imagePath);
             Width = bmp.Width;
             Height = bmp.Height;
+            var a = new MinHeap<MazeNode>();
 
             for (int x = 1; x < bmp.Width - 1; x++)
             {
@@ -35,57 +36,15 @@ namespace MazeSolver
                 if (End == null && IsPath(x, Height - 1)) End = new MazeNode(x, Height - 1);
             }
             AllNodes = new List<MazeNode>();
-            FindNeighbors(Start);
 
             Solution = new List<(int, int)>();
             SolutionFound = Solve(Start);
         }
 
-        public void FindNeighbors(MazeNode mn)
-        {
-            AllNodes.Add(mn);
-            mn.Neighbors.Add(CheckNeighbor(mn.Position.X, mn.Position.Y - 1));
-            mn.Neighbors.Add(CheckNeighbor(mn.Position.X - 1, mn.Position.Y));
-            mn.Neighbors.Add(CheckNeighbor(mn.Position.X, mn.Position.Y + 1));
-            mn.Neighbors.Add(CheckNeighbor(mn.Position.X + 1, mn.Position.Y));
-            mn.Neighbors.RemoveAll(n => n == null);
-
-            foreach (var n in mn.Neighbors)
-            {
-                if (!AllNodes.Contains(n))
-                    FindNeighbors(n);
-            }
-        }
-
-        public MazeNode CheckNeighbor(int x, int y)
-        {
-            var tmp = new MazeNode(x, y);
-            if (!AllNodes.Contains(tmp))
-            {
-                if (x >= 0 && y >= 0 && x < Width && y < Height && IsPath(x, y))
-                    return tmp;
-                else
-                    return null;
-            }
-            else
-            {
-                return AllNodes.First(n => n == tmp);
-            }
-        }
 
         public bool Solve(MazeNode mn)
         {
-            mn.Visited = true;
-            if (mn == End)
-                mn.InSolution = true;
-            foreach (var neighbor in mn.Neighbors)
-            {
-                if (!neighbor.Visited)
-                    mn.InSolution = Solve(neighbor) || mn.InSolution;
-            }
-            if (mn.InSolution)
-                Solution.Add(mn.Position);
-            return mn.InSolution;
+            return false;
         }
 
         public void SaveSolution()
