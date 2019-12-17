@@ -24,6 +24,7 @@ namespace MazeSolver
             Console.WriteLine($"Using maze image file: {Path.GetFileName(filePath)}");
 
             var maze = new Maze(filePath);
+            maze.Solve();
             if (maze.SolutionFound)
                 Console.WriteLine($"Solution found in {maze.Solution.Count} steps.");
             else

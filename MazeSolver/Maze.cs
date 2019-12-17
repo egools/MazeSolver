@@ -21,30 +21,91 @@ namespace MazeSolver
         public bool SolutionFound { get; set; } = false;
         public List<(int x, int y)> Solution { get; set; }
         public const string White = "ffffffff";
-        public bool IsPath(int x, int y) => bmp.GetPixel(x, y).Name == White;
+        public bool IsPath(int x, int y)
+        {
+            if (x < 0 || y < 0)
+                return false;
+            else
+                return bmp.GetPixel(x, y).Name == White;
+        }
         public Maze(string path)
         {
             _imagePath = path;
             bmp = new Bitmap(_imagePath);
             Width = bmp.Width;
             Height = bmp.Height;
-            var a = new MinHeap<MazeNode>();
+            AllNodes = new List<MazeNode>();
 
             for (int x = 1; x < bmp.Width - 1; x++)
             {
                 if (Start == null && IsPath(x, 0)) Start = new MazeNode(x, 0);
                 if (End == null && IsPath(x, Height - 1)) End = new MazeNode(x, Height - 1);
             }
-            AllNodes = new List<MazeNode>();
-
-            Solution = new List<(int, int)>();
-            SolutionFound = Solve(Start);
+            Start.SetDistanceFromEnd(End);
+            End.SetDistanceFromEnd(End);
+            Start.SetDistanceFromStart(Start);
+            End.SetDistanceFromStart(Start);
         }
 
 
-        public bool Solve(MazeNode mn)
+        public void Solve()
         {
-            return false;
+            var nodeQueue = new PriorityQueue<MazeNode>();
+            nodeQueue.Enqueue(Start);
+            while (!nodeQueue.IsEmpty && !SolutionFound)
+            {
+                var currentNode = nodeQueue.Dequeue();
+                currentNode.Visited = true;
+                if (IsPath(currentNode.Position.X + 1, currentNode.Position.Y)) //right
+                {
+                    var tmp = new MazeNode(currentNode.Position.X + 1, currentNode.Position.Y);
+                    tmp.SetDistanceFromStart(Start);
+                    tmp.SetDistanceFromEnd(End);
+                    if (!AllNodes.Contains(tmp))
+                    {
+                        AllNodes.Add(tmp);
+                        nodeQueue.Enqueue(tmp);
+                    }
+                    SolutionFound = SolutionFound || tmp.DistanceFromEnd == 0;
+                }
+                if (IsPath(currentNode.Position.X - 1, currentNode.Position.Y)) //left
+                {
+                    var tmp = new MazeNode(currentNode.Position.X - 1, currentNode.Position.Y);
+                    tmp.SetDistanceFromStart(Start);
+                    tmp.SetDistanceFromEnd(End);
+                    if(!AllNodes.Contains(tmp))
+                    {
+                        AllNodes.Add(tmp);
+                        nodeQueue.Enqueue(tmp);
+                    }
+                    SolutionFound = SolutionFound || tmp.DistanceFromEnd == 0;
+                }
+                if (IsPath(currentNode.Position.X, currentNode.Position.Y + 1)) //down
+                {
+                    var tmp = new MazeNode(currentNode.Position.X, currentNode.Position.Y + 1);
+                    tmp.SetDistanceFromStart(Start);
+                    tmp.SetDistanceFromEnd(End);
+                    if (!AllNodes.Contains(tmp))
+                    {
+                        AllNodes.Add(tmp);
+                        nodeQueue.Enqueue(tmp);
+                    }
+                    SolutionFound = SolutionFound || tmp.DistanceFromEnd == 0;
+                }
+                if (IsPath(currentNode.Position.X, currentNode.Position.Y - 1)) //up
+                {
+                    var tmp = new MazeNode(currentNode.Position.X, currentNode.Position.Y - 1);
+                    tmp.SetDistanceFromStart(Start);
+                    tmp.SetDistanceFromEnd(End);
+                    if (!AllNodes.Contains(tmp))
+                    {
+                        AllNodes.Add(tmp);
+                        nodeQueue.Enqueue(tmp);
+                    }
+                    SolutionFound = SolutionFound || tmp.DistanceFromEnd == 0;
+                }
+            }
+            if (SolutionFound) Solution = AllNodes.Where(n => n.Visited).Select(n => n.Position).ToList();
         }
 
         public void SaveSolution()

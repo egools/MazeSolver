@@ -7,19 +7,45 @@ namespace MazeSolver
     {
         public (int X, int Y) Position { get; set; }
         public bool Visited { get; set; } = false;
-        public float DistanceFromEnd { get; set; }
+        public double DistanceFromStart { get; private set; }
+        public double DistanceFromEnd { get; private set; }
+        public MazeNode PreviousNode { get; set; }
 
         public MazeNode(int x, int y)
         {
             Position = (x, y);
+            DistanceFromStart = double.MaxValue;
+            DistanceFromEnd = double.MaxValue;
+        }
+
+        public MazeNode(int x, int y, MazeNode start, MazeNode end)
+        {
+            SetDistanceFromStart(start);
+            SetDistanceFromEnd(end);
+            Position = (x, y);
+        }
+
+        public double GetDistanceFromNode(MazeNode node)
+        {
+            return Math.Sqrt(Math.Pow(Position.X - node.Position.X, 2) + Math.Pow(Position.Y - node.Position.Y, 2));
+        }
+
+        public void SetDistanceFromStart(MazeNode start)
+        {
+            DistanceFromStart = Math.Abs(GetDistanceFromNode(start));
+        }
+
+        public void SetDistanceFromEnd(MazeNode end)
+        {
+            DistanceFromEnd = Math.Abs(GetDistanceFromNode(end));
         }
 
         public override bool Equals(object obj)
         {
             if (!(obj is MazeNode))
                 return false;
-
-            return Position == (obj as MazeNode).Position;
+            else
+                return Position == (obj as MazeNode).Position;
         }
 
         public static bool operator ==(MazeNode l, MazeNode r)
@@ -56,7 +82,7 @@ namespace MazeSolver
             MazeNode otherMazeNode = obj as MazeNode;
 
             if (otherMazeNode != null)
-                return DistanceFromEnd.CompareTo(otherMazeNode.DistanceFromEnd);
+                return (DistanceFromStart + DistanceFromEnd).CompareTo((otherMazeNode.DistanceFromStart + otherMazeNode.DistanceFromEnd));
             else
                 throw new ArgumentException("Object is not a MazeNode");
         }
