@@ -11,11 +11,17 @@ namespace MazeSolver
         private T[] _arr;
         public int Size => _arr.Length;
         public bool IsEmpty => _arr.Length == 0;
-        public double Height => Math.Floor(Math.Log(Size, 2)) + 1;
+        public double Height => Math.Floor(Math.Log(Size, 2));
 
         public MinHeap()
         {
             _arr = new T[0];
+        }
+
+        public MinHeap(T[] arr)
+        {
+            _arr = new T[0];
+            Heapify(arr);
         }
 
         public T ExtractMin()
@@ -53,7 +59,7 @@ namespace MazeSolver
             }
         }
 
-        public void SiftDown(int index)
+        private void SiftDown(int index)
         {
             var pow = 2 * index + 1;
             if (pow >= Size) return;
@@ -75,7 +81,7 @@ namespace MazeSolver
             }
         }
 
-        public void SiftUp(int index)
+        private void SiftUp(int index)
         {
             var parentIndex = (int)Math.Floor((index - 1) / 2f);
             if (parentIndex >= 0)
@@ -88,6 +94,16 @@ namespace MazeSolver
                     SiftUp(parentIndex);
                 }
             }
+        }
+
+        public void Clear()
+        {
+            _arr = new T[0];
+        }
+
+        public bool Contains(T element)
+        {
+            return _arr.Contains(element);
         }
 
         public void DumpArr()
