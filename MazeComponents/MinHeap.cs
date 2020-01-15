@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MazeSolver
+namespace MazeComponents
 {
     public class MinHeap<T> where T : IComparable
     {
@@ -104,21 +104,6 @@ namespace MazeSolver
         public bool Contains(T element)
         {
             return _arr.Contains(element);
-        }
-
-        public void DumpArr()
-        {
-            for (int i = 1; i <= Size; i++)
-            {
-                double log = Math.Log(i, 2);
-                double pow = Math.Pow(2, Math.Round(log));
-                if (pow == i && i != 1)
-                {
-                    Console.WriteLine();
-                }
-                Console.Write(" " + _arr[i - 1] + " ");
-            }
-            Console.WriteLine();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MazeSolver
+namespace MazeComponents
 {
     public class MazeNode : IComparable
     {
@@ -14,18 +14,27 @@ namespace MazeSolver
         public double DistanceFromEnd { get; set; }
         public MazeNode PreviousNode { get; set; }
 
-        public MazeNode((int x, int y) pos)
+        /// <summary>
+        /// Create new node from coordinates with default distances from start and end.
+        /// </summary>
+        /// <param name="coords"></param>
+        public MazeNode((int x, int y) coords)
         {
-            Position = pos;
+            Position = coords;
             DistanceFromStart = double.MaxValue;
             DistanceFromEnd = double.MaxValue;
         }
 
-        public MazeNode((int x, int y) pos, MazeNode end)
+        /// <summary>
+        /// Create new node from coordinates with calculated distance from end and default distance from start.
+        /// </summary>
+        /// <param name="coords"></param>
+        /// <param name="end">Mazes end node.</param>
+        public MazeNode((int x, int y) coords, MazeNode end)
         {
             DistanceFromStart = double.MaxValue;
             DistanceFromEnd = Math.Abs(GetDistanceFromNode(end));
-            Position = pos;
+            Position = coords;
         }
 
         public double GetDistanceFromNode(MazeNode node)

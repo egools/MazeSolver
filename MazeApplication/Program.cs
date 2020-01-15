@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MazeComponents;
+using MazeSolver;
+using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MazeSolver
+namespace MazeApplication
 {
     class Program
     {
@@ -27,13 +25,13 @@ namespace MazeSolver
             Stopwatch s = new Stopwatch();
             s.Start();
             var maze = new Maze(filePath);
-            maze.Solve();
+            Solver.SolveAStar(maze);
             if (maze.SolutionFound)
                 Console.WriteLine($"Solution found in {maze.Solution.Count} steps.");
             else
                 Console.WriteLine($"No solution found.");
 
-            maze.SaveSolution();
+            MazeUtilities.SaveSolution(maze);
             s.Stop();
             Console.WriteLine("Time Elapsed: " + s.Elapsed.ToString(@"mm\:ss\.fff"));
 

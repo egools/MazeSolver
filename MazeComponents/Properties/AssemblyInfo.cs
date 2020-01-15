@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MazeSolver")]
+[assembly: AssemblyTitle("MazeComponents")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MazeSolver")]
+[assembly: AssemblyProduct("MazeComponents")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("09360bca-173f-4636-b79e-6a2aa2edf6d6")]
+[assembly: Guid("48ae1239-9a8a-4c26-ab8d-1b83b02147c9")]
 
 // Version information for an assembly consists of the following four values:
 //
